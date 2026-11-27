@@ -1,4 +1,3 @@
-FROM debian:trixie-slim
-ENV DEBIAN_FRONTEND=noninteractive
-RUN apt-get update && apt-get install -y xfce4 waydroid zram-tools firefox-esr && apt-get clean
+FROM debian:trixie
+RUN apt-get update && apt-get install -y xfce4 waydroid zram-tools && rm -rf /var/lib/apt/lists/*
 CMD ["startxfce4"]

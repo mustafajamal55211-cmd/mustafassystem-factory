@@ -1,1 +1,1 @@
-Willkommen bei MustafasSystem! Nach dem Booten erwartet dich ein fehlerfreies, ultraschnelles XFCE-Desktop mit Glas-Taskleiste. Waydroid und Google Play sind einsatzbereit – einfach Waydroid über das Startmenü oder Terminal starten, anmelden und alle Android-Apps fehlerfrei nutzen.
+Willkommen bei MustafasSystem! Starte den Desktop und genieße die Glas-Taskleiste. Für den Google Play Store öffne das Terminal und tippe 'waydroid session start'. Alle Treiber sind bereits vorinstalliert und laufen absolut fehlerfrei.
