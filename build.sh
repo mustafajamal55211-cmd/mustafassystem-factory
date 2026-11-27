@@ -1,11 +1,8 @@
-#!/usr/bin/env bash
+#!/bin/bash
 set -e
-echo "Starte Build-Prozess für MustafasSystem..."
-export DEBIAN_FRONTEND=noninteractive
+echo 'Bauen von MustafasSystem (Debian Trixie)...'
 apt-get update
-apt-get install -y debootstrap live-buildwaydroid curl wget
-echo "Basis-System wird erstellt..."
-# Konfiguration für live-build vorbereiten
-lb config || true
-lb build
-echo "ISO erfolgreich erstellt!"
+apt-get install -y xfce4 xfce4-goodies network-manager bluez pulseaudio firmware-linux firmware-iwlwifi firmware-realtek waydroid zram-tools firefox-esr vlc compton
+systemctl enable waydroid-container
+waydroid init
+echo 'MustafasSystem erfolgreich erstellt!'
