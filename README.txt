@@ -1,1 +1,1 @@
-Willkommen bei MustafasSystem! Nach dem ersten Start finden Sie die Glas-Taskleiste am oberen Bildschirmrand. Waydroid und der Google Play Store können über das Startmenü oder per Terminal mit 'waydroid session start' gestartet werden. Genießen Sie das ultra-schöne Erlebnis!
+Willkommen bei MustafasSystem! Nach dem ersten Start begrüßt dich die ultraschöne Glas-Taskleiste. Öffne das Terminal und tippe 'waydroid session start', um den Google Play Store ohne Fehler zu starten. Alle Treiber sind bereits aktiv.

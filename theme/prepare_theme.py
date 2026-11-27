@@ -271,7 +271,7 @@ for pxml in (f"{CHROOT}/etc/xdg/xfce4/panel/default.xml", f"{CHROOT}/etc/skel/.c
     <property name="plugin-15" type="string" value="tasklist"><property name="grouping" type="uint" value="1"/><property name="show-labels" type="bool" value="false"/><property name="flat-buttons" type="bool" value="true"/></property>
     <property name="plugin-16" type="string" value="separator"><property name="expand" type="bool" value="true"/><property name="style" type="uint" value="0"/></property>
     <property name="plugin-17" type="string" value="systray"><property name="square-icons" type="bool" value="true"/><property name="icon-size" type="int" value="20"/></property>
-    <property name="plugin-18" type="string" value="pulseaudio"><property name="enable-keyboard-shortcuts" type="bool" value="true"/></property>
+    <property name="plugin-18" type="string" value="pipewire-audio"><property name="enable-keyboard-shortcuts" type="bool" value="true"/></property>
     <property name="plugin-19" type="string" value="power-manager-plugin"/>
     <property name="plugin-20" type="string" value="clock"><property name="mode" type="uint" value="2"/><property name="digital-layout" type="uint" value="1"/><property name="digital-time-format" type="string" value="%H:%M"/><property name="digital-date-format" type="string" value="%d.%m.%Y"/><property name="show-frame" type="bool" value="false"/></property>
     <property name="plugin-21" type="string" value="showdesktop"/>

@@ -1,8 +1,7 @@
 xfce4
 xfce4-goodies
-xfpanel-switch
-compton
 waydroid
+weston
 firefox-esr
 vlc
 zram-tools
@@ -10,7 +9,9 @@ firmware-linux
 firmware-iwlwifi
 bluez
 pulseaudio
-alsa-utils
+pavucontrol
+network-manager
+lightdm
 firmware-misc-nonfree
 firmware-realtek
 firmware-atheros
@@ -21,7 +22,7 @@ wpasupplicant
 rfkill
 network-manager-gnome
 blueman
-pulseaudio-module-bluetooth
+pipewire-audio
 gvfs-backends
 thunar-volman
 eject
