@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import glob, os, shutil, subprocess
+import glob, os, shutil, subprocess, time
 import cairo, gi
 gi.require_version("Gtk", "3.0")
 gi.require_version("Gdk", "3.0")
@@ -115,16 +115,18 @@ def load_system_apps():
 class MustafaMenu(Gtk.Window):
     def __init__(self):
         super().__init__(title="System Menü")
+        self.opened_at = time.monotonic()
         self.all_apps = load_system_apps()
         self.current_cat = "favoriten"
-        provider = Gtk.CssProvider(); provider.load_from_data(CSS)
+        extra_css = b'\n.menu-frame { background-image: url("/usr/share/mustafa/startmenu-bg.png"); background-size: cover; }\n' if os.path.exists("/usr/share/mustafa/startmenu-bg.png") else b""
+        provider = Gtk.CssProvider(); provider.load_from_data(CSS + extra_css)
         Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
         self.set_default_size(690, 520); self.set_resizable(False)
         screen = self.get_screen(); visual = screen.get_rgba_visual()
         if visual and screen.is_composited():
             self.set_visual(visual); self.set_app_paintable(True); self.connect("draw", self.on_draw)
         self.set_decorated(False); self.set_skip_taskbar_hint(True)
-        self.connect("focus-out-event", lambda *_: Gtk.main_quit())
+        self.connect("focus-out-event", lambda _w, _e: Gtk.main_quit() if time.monotonic() - self.opened_at > 0.7 else None)
         self.connect("key-press-event", lambda _w, e: Gtk.main_quit() if e.keyval == Gdk.KEY_Escape else None)
         self.connect("destroy", Gtk.main_quit)
 

@@ -35,7 +35,7 @@ jobs:
             fi
 
             mkdir -p config/package-lists
-            printf "%s\n" live-boot live-config live-config-systemd systemd-sysv sudo locales console-setup keyboard-configuration network-manager network-manager-gnome firmware-linux firmware-iwlwifi bluez bluez-firmware blueman pulseaudio pulseaudio-module-bluetooth udisks2 gvfs exfatprogs ntfs-3g xorg xfce4-terminal xfce4-screenshooter thunar mousepad firefox-esr arc-theme papirus-icon-theme zram-tools python3 python3-gi python3-gi-cairo python3-cairo gir1.2-gtk-3.0 gir1.2-gdkpixbuf-2.0 cage weston > config/package-lists/custom.list.chroot
+            printf "%s\n" live-boot live-config live-config-systemd systemd-sysv sudo locales console-setup keyboard-configuration network-manager network-manager-gnome wpasupplicant wireless-tools iw rfkill firmware-linux firmware-linux-free firmware-linux-nonfree firmware-misc-nonfree firmware-iwlwifi firmware-realtek firmware-atheros firmware-brcm80211 firmware-mediatek firmware-libertas firmware-amd-graphics firmware-sof-signed bluez bluez-firmware blueman pulseaudio pulseaudio-module-bluetooth pavucontrol alsa-utils udisks2 gvfs gvfs-backends gvfs-fuse thunar-volman eject dosfstools exfatprogs ntfs-3g xorg xserver-xorg-video-all libgl1-mesa-dri mesa-utils va-driver-all vlc xfce4-terminal xfce4-screenshooter thunar mousepad firefox-esr arc-theme papirus-icon-theme zram-tools python3 python3-gi python3-gi-cairo python3-cairo gir1.2-gtk-3.0 gir1.2-gdkpixbuf-2.0 cage weston > config/package-lists/custom.list.chroot
 
             for listf in theme/desktop_packages.txt packages.txt; do
               [ -f "$listf" ] || continue

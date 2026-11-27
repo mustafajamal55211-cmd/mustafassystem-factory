@@ -108,6 +108,9 @@ make_wallpaper(f"{CHROOT}/usr/share/mustafa/wallpaper-1920x1080.png")
 if os.path.exists("assets/taskbar_upload.png"):
     tb_im = Image.open("assets/taskbar_upload.png").convert("RGBA")
     ImageOps.fit(tb_im, (1800, 64), method=Image.Resampling.LANCZOS).save(f"{CHROOT}/usr/share/mustafa/taskbar-bg.png", "PNG")
+if os.path.exists("assets/startmenu_upload.png"):
+    sm_im = Image.open("assets/startmenu_upload.png").convert("RGBA")
+    ImageOps.fit(sm_im, (700, 520), method=Image.Resampling.LANCZOS).save(f"{CHROOT}/usr/share/mustafa/startmenu-bg.png", "PNG")
 
 def make_boot_splash(w, h, out_path):
     im = Image.new("RGBA", (w, h), (10, 18, 46, 255))
@@ -164,10 +167,14 @@ desktop_apps = {
     "mustafa-discord.desktop": ("Discord", "internet-chat", "firefox-esr https://discord.com/app", False),
     "mustafa-instagram.desktop": ("Instagram", "emblem-photos", "firefox-esr https://www.instagram.com", False),
 }
+l_map = {"mustafa-start.desktop":1,"mustafa-search.desktop":2,"mustafa-explorer.desktop":4,"mustafa-browser.desktop":5,"mustafa-terminal.desktop":6,"mustafa-kamera.desktop":7,"mustafa-settings.desktop":8,"mustafa-store.desktop":9,"mustafa-waydroid.desktop":22,"mustafa-bluetooth.desktop":10,"mustafa-spotify.desktop":11,"mustafa-discord.desktop":12,"mustafa-instagram.desktop":13}
 for fn, (nm, ic, ex, nod) in desktop_apps.items():
-    with open(f"{CHROOT}/usr/share/applications/{fn}", "w") as f:
-        f.write(f"[Desktop Entry]\nType=Application\nName={nm}\nIcon={ic}\nExec={ex}\n")
-        if nod: f.write("NoDisplay=true\n")
+    txt = f"[Desktop Entry]\nVersion=1.0\nType=Application\nName={nm}\nIcon={ic}\nExec={ex}\nTerminal=false\n"
+    with open(f"{CHROOT}/usr/share/applications/{fn}", "w") as f: f.write(txt)
+    pid = l_map.get(fn)
+    if pid:
+        ld = f"{CHROOT}/etc/skel/.config/xfce4/panel/launcher-{pid}"; os.makedirs(ld, exist_ok=True)
+        with open(f"{ld}/{fn}", "w") as f: f.write(txt)
 
 STYLES = {
     "blue_glass": ("rgba(10, 22, 54, 0.88)", "rgba(56, 189, 248, 0.72)", "#f8fafc"),
@@ -182,15 +189,15 @@ tb_img_css = 'background-image: url("/usr/share/mustafa/taskbar-bg.png"); backgr
 
 with open(f"{CHROOT}/etc/skel/.config/gtk-3.0/gtk.css", "w") as f:
     f.write(f"""
-.xfce4-panel {{
+.xfce4-panel, .xfce4-panel .background, .xfce4-panel.background {{
     background-color: {bg_col};
     {tb_img_css}
     border: 1.5px solid {bd_col};
     border-radius: {radius};
     color: {fg_col};
 }}
-.xfce4-panel button {{ border-radius: 10px; color: {fg_col}; }}
-.xfce4-panel button:hover {{ background-color: rgba(56, 189, 248, 0.28); }}
+.xfce4-panel.background button, .xfce4-panel.background button.flat {{ background-color: transparent; background-image: none; border-color: transparent; box-shadow: none; border-radius: 12px; color: {fg_col}; padding: 3px; }}
+.xfce4-panel.background button:hover {{ background-color: rgba(56, 189, 248, 0.28); }}
 """)
 
 pos_str = "p=6;x=0;y=0" if TB_POS == "top_float" else "p=10;x=0;y=0"
@@ -217,7 +224,9 @@ with open(f"{CHROOT}/etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfwm4.xml
 </channel>
 """)
 
-with open(f"{CHROOT}/etc/xdg/xfce4/panel/default.xml", "w") as f:
+os.makedirs(f"{CHROOT}/etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml", exist_ok=True)
+for pxml in (f"{CHROOT}/etc/xdg/xfce4/panel/default.xml", f"{CHROOT}/etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml"):
+  with open(pxml, "w") as f:
     f.write(f"""<?xml version="1.0" encoding="UTF-8"?>
 <channel name="xfce4-panel" version="1.0">
   <property name="configver" type="int" value="2"/>
@@ -310,6 +319,8 @@ if [ -f /etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml ]; then
 fi
 {wd_install}
 echo "binder_linux" > /etc/modules-load.d/waydroid.conf || true
+rfkill unblock all || true
+systemctl enable NetworkManager 2>/dev/null || true
 chmod +x /usr/local/bin/mustafa-*
 chmod 0440 /etc/sudoers.d/mustafa-turbo
 """)
