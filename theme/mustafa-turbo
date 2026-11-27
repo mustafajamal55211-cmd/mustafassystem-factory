@@ -1,0 +1,14 @@
+#!/bin/bash
+MODE="$1"
+for cpu in /sys/devices/system/cpu/cpu*/cpufreq; do
+  [ -d "$cpu" ] || continue
+  AVAIL=$(cat "$cpu/scaling_available_governors" 2>/dev/null)
+  if [ "$MODE" = "on" ]; then
+    echo "$AVAIL" | grep -qw performance && echo performance > "$cpu/scaling_governor"
+  else
+    if echo "$AVAIL" | grep -qw schedutil; then echo schedutil > "$cpu/scaling_governor"
+    elif echo "$AVAIL" | grep -qw powersave; then echo powersave > "$cpu/scaling_governor"
+    fi
+  fi
+done
+if [ "$MODE" = "on" ]; then sync; echo 1 > /proc/sys/vm/drop_caches 2>/dev/null || true; fi

@@ -1,0 +1,1 @@
+Willkommen bei MustafasSystem! Nach dem ersten Start findest du die Glas-Leiste am unteren Bildschirmrand und das Startmenü für alle Apps. Waydroid mit Google Play ist einsatzbereit – öffne einfach das Waydroid-Terminal oder starte Android-Apps direkt aus dem XFCE-Anwendungsmenü. Viel Freude mit dem weltbesten Linux-System!
