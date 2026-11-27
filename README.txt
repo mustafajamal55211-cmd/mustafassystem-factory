@@ -1,1 +1,1 @@
-Willkommen bei MustafasSystem! Starte den Desktop und genieße die Glas-Taskleiste. Für den Google Play Store öffne das Terminal und tippe 'waydroid session start'. Alle Treiber sind bereits vorinstalliert und laufen absolut fehlerfrei.
+Willkommen bei MustafasSystem! 1. Brennen Sie die ISO auf einen USB-Stick oder starten Sie sie in einer VM. 2. Nach dem ersten Start initialisiert sich Waydroid automatisch im Hintergrund für den Google Play Store. 3. Genießen Sie das blitzschnelle XFCE Ultra-Glass-Design!
